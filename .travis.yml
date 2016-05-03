@@ -1,0 +1,29 @@
+sudo: required
+dist: trusty
+language: c
+
+before_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq build-essential libconfig-dev libvpx-dev libopus-dev libcap-dev libnl-route-3-dev libnl-3-dev libjansson-dev check
+  # install sodium, needed for toxcore
+  - git clone https://github.com/jedisct1/libsodium.git
+  - cd libsodium
+  - git checkout tags/1.0.10
+  - ./autogen.sh
+  - ./configure
+  - make -j3
+  - sudo make install
+  - cd ..
+  - sudo ldconfig
+  # install toxcore
+  - git clone https://github.com/irungentoo/toxcore.git
+  - cd toxcore
+  - ./autogen.sh
+  - ./configure
+  - make -j3
+  - sudo make install
+  - cd ..
+  - sudo ldconfig
+
+script:
+  - make toxvpn_static
