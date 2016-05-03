@@ -2,10 +2,6 @@ OBJS := $(patsubst %.c,%.o, $(wildcard *.c))
 OBJS += $(patsubst %.cpp,%.o, $(wildcard *.cpp))
 DEPS := libnl-3.0 libnl-route-3.0 jansson libtoxcore
 
-#COMMON_FLAGS := -Wall -g -Werror=incompatible-pointer-types -Werror=return-type
-#CXXFLAGS += -std=c++14 $(COMMON_FLAGS)
-#CFLAGS += -std=c99 -I/usr/include/libnl3 $(COMMON_FLAGS)
-#LDFLAGS += -pthread -static-libgcc -static-libstdc++ -Wl,-Bstatic -ltoxcore -lsodium -lnl-3 -lnl-route-3 -lcap -ljansson -Bdynamic
 CFLAGS += -std=c99 $(shell pkg-config --cflags $(DEPS))
 CXXFLAGS += -std=c++11 $(shell pkg-config --cflags $(DEPS))
 LDFLAGS += -lcap $(shell pkg-config --libs $(DEPS))
@@ -32,6 +28,6 @@ toxvpn_static: $(OBJS)
 	@$(CXX) -c $(CXXFLAGS) -o $@ $<
 
 clean:
-	rm -f $(OBJS) $(OUTFILE)
+	rm -f $(OBJS) toxvpn
 
 .PHONY: all clean toxvpn_static

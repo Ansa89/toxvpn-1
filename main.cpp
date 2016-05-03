@@ -41,13 +41,14 @@ inline void trace(const char* formator, ...) {
 #define SECRET_SIZE 32
 
 static const char *help_message = \
-    "-h\t\tshow help\n" \
-    "-s <secret>\t use passed hex secret\n" \
-    "-p <proxy>\t use socks|http://hostname:port> proxy server\n" \
-    "-n <subnetwork/prefix length>\n" \
-    "-b <IP:port:tox_address>\tuse bootstap node\n" \
-    "-c <address>:<secret>\t connect to server using tox address\n" \
-    "-f <file>\tload/save settings from/to file\n";
+    "Options:\n" \
+    " -h                        show help\n" \
+    " -s <secret>               use passed hex secret\n" \
+    " -p <proxy>                use socks|http://IP:port proxy\n" \
+    " -n <subnet/prefix_length>\n" \
+    " -b <IP:port:tox_address>  use bootstrap node\n" \
+    " -c <tox_address:secret>   connect to server using tox address\n" \
+    " -f <file>                 load/save settings from/to file\n";
 
 enum OptionFlags {
     SUBNET_SET          =   1,
@@ -127,7 +128,7 @@ struct ApplicationContext{
 
     void print_usage(int argc, char **argv) const
     {
-        fprintf(stderr, "usage: %s options", argv[0]);
+        fprintf(stderr, "usage: %s [options]\n", argv[0]);
         fprintf(stderr, help_message);
     }
 
